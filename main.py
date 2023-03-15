@@ -26,7 +26,7 @@ async def getUrl(message: types.Message):
     if message.text.startswith('https://') or len(message.text) > 20:
         await bot.send_message(chat_id=message.chat.id, text="Hozir")
 
-        if not os.path.isdir(f'./Download/{UserId}'):
+        if not os.path.isdir(f'./Download/{UserId}/'):
             os.mkdir(f'./Download/{UserId}')
         else:
             print("Mavjud")
