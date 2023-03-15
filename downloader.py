@@ -1,7 +1,6 @@
 import wget
 import os
 import shutil
-import requests
 def bar_progress(current, total, width=80):
       progress_message = "Downloading: %d%% [%d / %d] megabytes" % (current / total * 100, current / 1024 / 1024, total / 1024 /1024)
 
