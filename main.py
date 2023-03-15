@@ -4,7 +4,7 @@ from downloader import Download, DeleteFolder
 import FileNames
 import os
 from aiogram import Bot, Dispatcher, executor,types
-import time
+
 API_TOKEN = '5775603853:AAGrBSp6w5oYjpo56qa3TDEaWLa5GxFu1vo'
 
 logging.basicConfig(level=logging.INFO)
@@ -45,11 +45,13 @@ async def getUrl(message: types.Message):
 
         print("True")
 
-        userId = message.chat.id
+        try:
+            userId = message.chat.id
 
-        pathId = f"./Download/{userId}/"
-        fileList = FileNames.FileFInder(pathId)
-
+            pathId = f"./Download/{userId}/"
+            fileList = FileNames.FileFInder(pathId)
+        except:
+            pass
 
 
         try:
@@ -61,9 +63,11 @@ async def getUrl(message: types.Message):
             await bot.send_message(message.chat.id, text="Xato")
 
     if message.text == "Delete file":
-        paths = f"./Download/{UserId}/"
-        DeleteFolder(paths)
-
+        try:
+            paths = f"./Download/{UserId}/"
+            DeleteFolder(paths)
+        except:
+            pass
         try:
             await bot.send_message(chat_id=message.chat.id, text="Deleted all file successfully")
         except:
@@ -71,13 +75,15 @@ async def getUrl(message: types.Message):
 
     if message.text == "All my file":
 
-        if len(FileNames.FileFInder(f'./Download/{UserId}/')) >= 1 :
+        try:
+            if len(FileNames.FileFInder(f'./Download/{UserId}/')) >= 1 :
 
-            for fileN in FileNames.FileFInder(f'./Download/{UserId}/'):
-                await bot.send_message(chat_id=message.chat.id, text=fileN)
-        else:
-            await bot.send_message(chat_id=message.chat.id, text="Your folder is empty")
-
+                for fileN in FileNames.FileFInder(f'./Download/{UserId}/'):
+                    await bot.send_message(chat_id=message.chat.id, text=fileN)
+            else:
+                await bot.send_message(chat_id=message.chat.id, text="Your folder is empty")
+        except:
+            pass
 async def progress(current, total):
     print(f"{current * 100 / total:.1f}%")
 
