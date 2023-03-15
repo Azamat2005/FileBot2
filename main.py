@@ -30,15 +30,14 @@ async def getUrl(message: types.Message):
             os.mkdir(f'./Download/{UserId}')
         else:
             print("Mavjud")
-            pass
+
 
 
         url = message.text
         output_path = f'./Download/{UserId}/'
-        try:
-            Download(url, output_path)
-        except:
-            pass
+
+        Download(url, output_path)
+
         await bot.send_message(chat_id=message.chat.id, text="Yuklandi",)
 
     if message.text == "Send My file":
@@ -50,16 +49,13 @@ async def getUrl(message: types.Message):
 
             pathId = f"./Download/{userId}/"
             fileList = FileNames.FileFInder(pathId)
-        except:
-            pass
 
-
-        try:
             for fileName in fileList:
                 file_path = f"./Download/{UserId}/{fileName}"
                 await bot.send_document(chat_id=message.chat.id, document=types.InputFile(file_path))
-
         except:
+            pass
+
             await bot.send_message(message.chat.id, text="Xato")
 
     if message.text == "Delete file":
@@ -67,6 +63,7 @@ async def getUrl(message: types.Message):
             paths = f"./Download/{UserId}/"
             DeleteFolder(paths)
         except:
+
             pass
         try:
             await bot.send_message(chat_id=message.chat.id, text="Deleted all file successfully")
